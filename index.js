@@ -24,7 +24,27 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// API date YYYY-MM-DD date to JSON
+app.get("/api/:year-:month-:day", function (req, res) {
+  const year = req.params["year"];
+  const month = req.params["month"];
+  const day = req.params["day"];
+  const date = new Date(year+"-"+month+"-"+day);
+  res.json({
+    "unix": date.getTime(),
+    "utc": date.toUTCString()
+  });
+});
 
+// API date Unix time to JSON
+app.get("/api/:time", function (req, res) {
+  const time = parseInt(req.params["time"]);
+  const date = new Date(time);
+  res.json({
+    "unix": date.getTime(),
+    "utc": date.toUTCString()
+  });
+});
 
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
