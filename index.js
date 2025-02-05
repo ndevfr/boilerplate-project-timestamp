@@ -27,7 +27,9 @@ app.get("/api/hello", function (req, res) {
 // API unique endpoint
 app.get("/api/:date?", function (req, res) {
   const dateString = req.params["date"];
-  if(isNaN(dateString)){
+  if(!dateString){
+    date = new Date();
+  } else if(isNaN(dateString)){
     date = new Date(dateString);
   } else {
     date = new Date(parseInt(dateString));
